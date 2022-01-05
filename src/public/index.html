@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <title>Pasteleria</title>
+</head>
+<body class="p-5 ">
+    <div class="p-6">
+        <h3 class="text-warning text-center">Bienvenidos a la panaderia!</h3>
+        <hr>
+    </div>
+
+    <!-- cards & addProducts  -->
+    <div id="divAddProductos"> 
+        <h4>Agregar un producto 
+            <button type="button" id="btnAdd" class="btn btn-dark ml-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="far fa-plus-square"></i>
+            </button> 
+        </h4>
+    </div>
+    <div id="realTimeCards">
+
+    </div>
+    <hr>
+    <div id="fetchTxt">
+    </div>
+    <!-- end cards & addProducts  -->
+    
+    <!-- Modal post -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="divPost">
+                <form id="formPostN" name="formPostN">
+                    <p>Subir producto (POST) </p>
+                    <label for="modalTitle">Nombre</label><br>
+                    <input name="modalTitle" id="modalTitle" required><br>
+                    <label for="modalPrice">Precio</label><br>
+                    <input name="modalPrice"  id="modalPrice" required type="number"><br>
+                    <label for="modalDescripcion">Descripcion</label><br>
+                    <input name="modalDescripcion" id="modalDescripcion" type="text" required><br>
+                    <label for="modalStock">Stock</label><br>
+                    <input name="modalStock" id="modalStock" required type="number"><br>
+                    <label for="modalImage">Imagen</label><br>
+                    <input type="text" name="modalImagen" id="modalImagen"><br><br>
+                    <button type="submit"> Enviar </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- end modal post -->
+
+
+    <!-- Modal put -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="divUpdate">
+                    <form id="formUpdate" name="formUpdate">
+                        <p>Editar producto (PUT) </p>
+                        <label for="paramsId">Indica el id del producto que quieres modificar</label>
+                        <input name="paramsId" id="paramsId"  type="number" required><br>
+                        <label for="modalTitle">Nombre</label><br>
+                        <input name="modalTitle" id="modalTitle" required><br>
+                        <label for="modalPrice">Precio</label><br>
+                        <input name="modalPrice"  id="modalPrice" required type="number"><br>
+                        <label for="modalDescripcion">Descripcion</label><br>
+                        <input name="modalDescripcion" id="modalDescripcion" type="text" required><br>
+                        <label for="modalStock">Stock</label><br>
+                        <input name="modalStock" id="modalStock" required type="number"><br>
+                        <label for="modalImage">Imagen</label><br>
+                        <input type="text" name="modalImagen" id="modalImagen"><br><br>
+                        <button type="submit"> Enviar </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div><hr>
+    <!-- END modal put -->
+    
+    <!-- table cart with products -->
+    <div class=" p-5">
+        <div id="insertTableDCart"></div>
+        <div class="bg-dark">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                    <th></th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Foto</th>
+                    </tr>
+                </thead>
+                <tbody id="divTableCart">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- end table cart -->
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./index.js" type="application/javascript" ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
